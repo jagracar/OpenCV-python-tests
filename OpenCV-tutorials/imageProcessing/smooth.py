@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image
-img = cv2.imread('images/opencv_logo.jpg')
+img = cv2.imread('../images/opencv_logo.jpg')
 
 # Create the uniform kernel
 kernel = np.ones((5, 5), np.float32) / 25

@@ -7,8 +7,8 @@ import numpy as np
 import cv2
 
 # Load two images
-img1 = cv2.imread('images/butterfly.jpg')
-img2 = cv2.imread('images/messi5.jpg')
+img1 = cv2.imread('../images/butterfly.jpg')
+img2 = cv2.imread('../images/messi5.jpg')
 
 # Calculate the minimum number of rows and columns
 minRows = min(img1.shape[0], img2.shape[0])
@@ -25,8 +25,8 @@ dst = cv2.addWeighted(img1, 0.3, img2, 0.7, 0)
 cv2.imshow('blend', dst)
 
 # Load two other images
-img1 = cv2.imread('images/messi5.jpg')
-img2 = cv2.imread('images/opencv_logo.jpg')
+img1 = cv2.imread('../images/messi5.jpg')
+img2 = cv2.imread('../images/opencv_logo.jpg')
 
 # Create the logo background mask 
 img2gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)

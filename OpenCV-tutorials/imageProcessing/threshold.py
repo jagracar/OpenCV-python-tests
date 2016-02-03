@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in grey scale and smooth it a bit
-img = cv2.imread('images/sudoku-original.jpg', 0)
+img = cv2.imread('../images/sudoku-original.jpg', 0)
 img = cv2.medianBlur(img, 5)
 
 # Apply the different thresholds

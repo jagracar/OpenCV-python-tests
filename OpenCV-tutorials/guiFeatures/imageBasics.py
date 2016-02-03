@@ -8,8 +8,8 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load an image
-img = cv2.imread('images/messi5.jpg', 0)  # in greyscale format
-# img = cv2.imread('images/messi5.jpg', -1)  # in bgr format
+img = cv2.imread('../images/messi5.jpg', 0)  # in greyscale format
+# img = cv2.imread('../images/messi5.jpg', -1)  # in bgr format
 
 # Display the image using matplotlib or the opencv methods
 useMatplotlib = True
@@ -35,6 +35,6 @@ else:
         # cv2.destroyWindow(windowName)
     elif k == ord('s'):
         # Save the modified image
-        cv2.imwrite('out/messigray.png', img)
+        cv2.imwrite('../out/messigray.png', img)
         cv2.destroyAllWindows()
 

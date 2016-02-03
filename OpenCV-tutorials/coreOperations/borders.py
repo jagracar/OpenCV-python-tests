@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Read the image
-img = cv2.imread('images/opencv_logo.jpg')
+img = cv2.imread('../images/opencv_logo.jpg')
 print(img.shape)
 
 # Create different copies

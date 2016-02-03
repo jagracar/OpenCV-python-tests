@@ -1,6 +1,6 @@
 '''
  Based on the following tutorial:
-   http://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_filtering/py_filtering.html
+   http://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html
 '''
 
 import numpy as np
@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in gray scale
-img = cv2.imread('images/j.png', 0)
+img = cv2.imread('../images/j.png', 0)
 
 # Create the desired kernel
 kernelType = 1

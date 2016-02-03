@@ -12,7 +12,7 @@ useWebcam = True
 if useWebcam:
     cap = cv2.VideoCapture(0)
 else:
-    cap = cv2.VideoCapture('images/drop.avi')
+    cap = cv2.VideoCapture('../images/drop.avi')
 
 # Check that the capture is open
 if not cap.isOpened():
@@ -28,7 +28,7 @@ if fps == -1:
 
 # Define the video codec and create VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-videoOutput = cv2.VideoWriter('out/output.avi', fourcc, fps, (width, height))
+videoOutput = cv2.VideoWriter('../out/output.avi', fourcc, fps, (width, height))
 
 #
 # Display the capture frames
