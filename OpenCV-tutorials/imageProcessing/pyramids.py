@@ -11,7 +11,7 @@ imgA = cv2.imread('../images/apple.jpg')
 imgB = cv2.imread('../images/orange.jpg')
 
 # Set the total number of pyramid levels
-levels = 6
+levels = 5
 
 # Generate Gaussian pyramid for imgA
 gaussianPyramidA = [imgA.copy()]

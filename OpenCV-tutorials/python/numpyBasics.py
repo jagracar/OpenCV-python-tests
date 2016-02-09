@@ -92,3 +92,8 @@ print(a)
 b = a.copy()
 b[:] = 20
 print(b[0, 0] != a[0, 0])
+
+# Use of argmin
+a = np.array([1, 2, 0, 2, 5, 3]).reshape(2, 3)
+print(a[1].argmin())
+
