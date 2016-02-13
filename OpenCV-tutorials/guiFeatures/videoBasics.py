@@ -30,7 +30,6 @@ if fps == -1:
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 videoOutput = cv2.VideoWriter('../out/output.avi', fourcc, fps, (width, height))
 
-#
 # Display the capture frames
 while True:
     # Get the next frame
