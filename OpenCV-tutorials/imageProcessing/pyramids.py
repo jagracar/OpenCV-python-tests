@@ -7,8 +7,8 @@ import cv2
 import numpy as np, sys
 
 # Load the two images that we want to blend
-imgA = cv2.imread('../images/apple.jpg')
-imgB = cv2.imread('../images/orange.jpg')
+imgA = cv2.imread('../data/apple.jpg')
+imgB = cv2.imread('../data/orange.jpg')
 
 # Set the total number of pyramid levels
 levels = 5

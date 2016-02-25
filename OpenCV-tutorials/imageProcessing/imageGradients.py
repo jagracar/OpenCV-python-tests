@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in gray scale
-img = cv2.imread('../images/sudoku-original.jpg', 0)
+img = cv2.imread('../data/sudoku-original.jpg', 0)
 
 # Calculate the different filters
 laplacian = cv2.Laplacian(img, ddepth=cv2.CV_64F)

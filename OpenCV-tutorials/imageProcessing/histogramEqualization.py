@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in gray scale
-img = cv2.imread('../images/wiki.jpg', 0)
+img = cv2.imread('../data/wiki.jpg', 0)
 
 # Calculate the histogram
 hist, bins = np.histogram(img.flatten(), 256, [0, 256])

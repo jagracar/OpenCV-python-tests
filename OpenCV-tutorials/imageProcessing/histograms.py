@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in gray scale
-img = cv2.imread('../images/home.jpg', 0)
+img = cv2.imread('../data/home.jpg', 0)
 
 # create a mask
 mask = np.zeros(img.shape[:2], np.uint8)

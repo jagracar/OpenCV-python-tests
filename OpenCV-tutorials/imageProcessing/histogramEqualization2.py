@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in gray scale
-img = cv2.imread('../images/tsukuba_l.png', 0)
+img = cv2.imread('../data/tsukuba_l.png', 0)
 
 # Equalize the image
 equalizedImg = cv2.equalizeHist(img)

@@ -20,7 +20,7 @@ def threshold2Callback(x):
     return
 
 # Load the image in gray scale
-img = cv2.imread('../images/messi5.jpg', 0)
+img = cv2.imread('../data/messi5.jpg', 0)
 
 # Apply the Canny edge detection algorithm with the initial threshold values
 threshold1 = 100

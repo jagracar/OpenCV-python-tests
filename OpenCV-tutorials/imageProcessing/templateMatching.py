@@ -8,8 +8,8 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the images in grey scale
-originalImg = cv2.imread('../images/messi5.jpg', 0)
-template = cv2.imread('../images/messi_face.jpg', 0)
+originalImg = cv2.imread('../data/messi5.jpg', 0)
+template = cv2.imread('../data/messi_face.jpg', 0)
 w, h = template.shape[::-1]
 
 # Compare all the methods

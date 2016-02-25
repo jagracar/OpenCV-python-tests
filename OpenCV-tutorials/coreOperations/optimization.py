@@ -7,7 +7,7 @@ import numpy as np
 import cv2
 
 # Load the image
-img1 = cv2.imread('messi5.jpg')
+img1 = cv2.imread('../data/messi5.jpg')
 
 # Get the initial tick count
 startCount = cv2.getTickCount()

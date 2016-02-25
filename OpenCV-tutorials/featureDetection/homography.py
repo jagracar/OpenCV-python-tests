@@ -7,8 +7,8 @@ import numpy as np
 import cv2
 
 # Load the images in gray scale
-img1 = cv2.imread('../images/box.png', 0)
-img2 = cv2.imread('../images/box_in_scene.png', 0)
+img1 = cv2.imread('../data/box.png', 0)
+img2 = cv2.imread('../data/box_in_scene.png', 0)
 
 # Detect the SIFT key points and compute the descriptors for the two images
 sift = cv2.xfeatures2d.SIFT_create()
@@ -52,8 +52,8 @@ else:
     matchesMask = None
 
 # Draw the matches
-result = cv2.drawMatches(img1, keyPoints1, img2, keyPoints2, goodMatches, None,
-                         matchColor=(0, 255, 0), singlePointColor=None, matchesMask=False, flags=2)
+drawParameters = dict(matchColor=(0, 255, 0), singlePointColor=None, matchesMask=matchesMask, flags=2)
+result = cv2.drawMatches(img1, keyPoints1, img2, keyPoints2, goodMatches, None, **drawParameters)
 
 # Display the results
 cv2.imshow('Homography', result)

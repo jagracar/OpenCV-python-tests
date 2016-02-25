@@ -7,7 +7,7 @@ import numpy as np
 import cv2
 
 # Initialize the video
-cap = cv2.VideoCapture('../images/vtest.avi')
+cap = cv2.VideoCapture('../data/vtest.avi')
 
 # Create the background subtraction object
 method = 1

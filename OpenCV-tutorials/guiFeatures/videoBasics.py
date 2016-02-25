@@ -12,7 +12,7 @@ useWebcam = True
 if useWebcam:
     cap = cv2.VideoCapture(0)
 else:
-    cap = cv2.VideoCapture('../images/drop.avi')
+    cap = cv2.VideoCapture('../data/drop.avi')
 
 # Check that the capture is open
 if not cap.isOpened():

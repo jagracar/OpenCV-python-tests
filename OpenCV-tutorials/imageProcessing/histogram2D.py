@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image
-img = cv2.imread('../images/home.jpg')
+img = cv2.imread('../data/home.jpg')
 
 # Convert the image to HSV
 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)

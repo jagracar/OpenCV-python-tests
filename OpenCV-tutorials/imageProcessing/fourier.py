@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in gray scale
-img = cv2.imread('../images/messi5.jpg', 0)
+img = cv2.imread('../data/messi5.jpg', 0)
 rows, cols = img.shape
 
 # Transform the image to improve the speed in the fourier transform calculation

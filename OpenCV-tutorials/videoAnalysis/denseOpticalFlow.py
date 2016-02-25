@@ -8,7 +8,7 @@ import cv2
 
 # Start the webcam
 cap = cv2.VideoCapture(0)
-# cap = cv2.VideoCapture('../images/vtest.avi')
+# cap = cv2.VideoCapture('../data/vtest.avi')
 
 # Take the first frame and convert it to gray
 ret, frame = cap.read()

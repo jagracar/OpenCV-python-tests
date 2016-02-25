@@ -7,8 +7,8 @@ import numpy as np
 import cv2
 
 # Load the images in gray scale
-img1 = cv2.imread('../images/box.png', 0)
-img2 = cv2.imread('../images/box_in_scene.png', 0)
+img1 = cv2.imread('../data/box.png', 0)
+img2 = cv2.imread('../data/box_in_scene.png', 0)
 
 # Detect the SIFT key points and compute the descriptors for the two images
 sift = cv2.xfeatures2d.SIFT_create()

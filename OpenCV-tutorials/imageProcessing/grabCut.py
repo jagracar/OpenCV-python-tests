@@ -7,7 +7,7 @@ import numpy as np
 import cv2
 
 # Load the image
-img = cv2.imread('../images/messi5.jpg')
+img = cv2.imread('../data/messi5.jpg')
 
 # Run the grab cut algorithm
 mask = np.zeros(img.shape[:2], np.uint8)

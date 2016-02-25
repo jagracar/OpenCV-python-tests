@@ -7,7 +7,7 @@ import numpy as np
 import cv2
 
 # Load the image
-img = cv2.imread('../images/sudoku-original.jpg')
+img = cv2.imread('../data/sudoku-original.jpg')
 rows, cols, channels = img.shape
 
 # Convert it to gray scale and detect the edges

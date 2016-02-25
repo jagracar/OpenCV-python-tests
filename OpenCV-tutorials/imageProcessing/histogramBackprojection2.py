@@ -7,7 +7,7 @@ import numpy as np
 import cv2
 
 # Load the target image
-target = cv2.imread('../images/rose.png')
+target = cv2.imread('../data/rose.png')
 targetHsv = cv2.cvtColor(target, cv2.COLOR_BGR2HSV)
 
 # Define the model image

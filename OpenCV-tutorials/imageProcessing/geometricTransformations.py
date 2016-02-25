@@ -7,7 +7,7 @@ import numpy as np
 import cv2
 
 # Load the image
-img = cv2.imread('../images/messi5.jpg')
+img = cv2.imread('../data/messi5.jpg')
 
 # Increase the size by a factor of 2
 zoomedImg = cv2.resize(img, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)

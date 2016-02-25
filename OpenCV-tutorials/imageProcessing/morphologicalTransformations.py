@@ -8,7 +8,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Load the image in gray scale
-img = cv2.imread('../images/j.png', 0)
+img = cv2.imread('../data/j.png', 0)
 
 # Create the desired kernel
 kernelType = 1
