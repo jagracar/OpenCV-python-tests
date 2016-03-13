@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 trainData = np.random.randint(0, 100, (25, 2)).astype(np.float32)
 
 # Split the training data in two groups
-responses = np.random.randint(0, 2, (25, 1)).astype(np.float32)
+responses = np.random.randint(0, 2, (25, 1))
 redGroup = trainData[responses.ravel() == 0]
 blueGroup = trainData[responses.ravel() == 1]
 

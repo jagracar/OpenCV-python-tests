@@ -6,63 +6,87 @@
 import cv2
 import numpy as np
 
-
-cellSize = 20
-nBins = 16
-
-# Corrects the image skew
 def deskew(img):
-    m = cv2.moments(img)
-    if abs(m['mu02']) < 1e-2:
+    '''
+      Corrects the image skew
+    '''
+    # Calculate the image moments
+    moments = cv2.moments(img)
+    
+    # Check if it's already fine
+    if abs(moments['mu02']) < 1e-2:
         return img.copy()
-    skew = m['mu11'] / m['mu02']
+    
+    # Calculate the skew
+    skew = moments['mu11'] / moments['mu02']
+    
+    # Correct the skew
+    cellSize = int(np.sqrt(img.size))
     M = np.float32([[1, skew, -0.5 * cellSize * skew], [0, 1, 0]])
-    img = cv2.warpAffine(img, M, (cellSize, cellSize), flags=affine_flags)
-    return img
+    flags = cv2.WARP_INVERSE_MAP | cv2.INTER_LINEAR
+    return cv2.warpAffine(img, M, (cellSize, cellSize), flags=flags)
 
-# Calculates the HOG histograms
+
 def hog(img):
+    '''
+      Calculates the image Histograms of Oriented Gradients
+    '''
+    # Calculate the gradient images in polar coordinates
     gx = cv2.Sobel(img, cv2.CV_32F, 1, 0)
     gy = cv2.Sobel(img, cv2.CV_32F, 0, 1)
-    mag, ang = cv2.cartToPolar(gx, gy)
-    bins = np.int32(nBins * ang / (2 * np.pi))  # quantizing binvalues in (0...16)
-    bin_cells = bins[:10, :10], bins[10:, :10], bins[:10, 10:], bins[10:, 10:]
-    mag_cells = mag[:10, :10], mag[10:, :10], mag[:10, 10:], mag[10:, 10:]
-    hists = [np.bincount(b.ravel(), m.ravel(), nBins) for b, m in zip(bin_cells, mag_cells)]
-    hist = np.hstack(hists)  # hist is a 64 bit vector
-    return hist
+    magnitude, angle = cv2.cartToPolar(gx, gy)
+    
+    # Reduce the gradient angles to a fix number of values
+    nBins = 16
+    angle = np.int32(nBins * angle / (2 * np.pi))
+    
+    # Separate the gradient images in 4 cells
+    angleCells = angle[:10, :10], angle[10:, :10], angle[:10, 10:], angle[10:, 10:]
+    magnitudeCells = magnitude[:10, :10], magnitude[10:, :10], magnitude[:10, 10:], magnitude[10:, 10:]
+    
+    # Calculate the angle histograms for each cell, weighting the angle values with the magnitude values
+    angleHists = [np.bincount(a.ravel(), m.ravel(), nBins) for a, m in zip(angleCells, magnitudeCells)]
+    
+    # Return the stack of the 4 cell histograms
+    return np.hstack(angleHists)
 
-# Load the image containing the training data
-img = cv2.imread('../data/digits.png', 0)
 
-# Split the image in 5000 cells, each of 20x20 pixels size
-cells = [np.hsplit(row, 100) for row in np.vsplit(img, 50)]
+# Load the file containing the digits data: 500 different images for each digit
+data = cv2.imread('../data/digits.png', 0)
 
-# Split the cells into train cells and test cells
-trainCells = [ i[:50] for i in cells ]
-testCells = [ i[50:] for i in cells]
+# Split the data in 5000 images, each of 20x20 pixels size
+digitImages = [np.hsplit(row, 100) for row in np.vsplit(data, 50)]
+print('digitImages dimensions:', str(len(digitImages)) + 'x' + str(len(digitImages[0])) + 'x' + str(digitImages[0][0].size))
 
-######     Now training      ########################
+# Deskew the digit images
+digitImages = [list(map(deskew, row)) for row in digitImages]
 
-svm_params = dict(kernel_type=cv2.ml.SVM_LINEAR, svm_type=cv2.ml.SVM_C_SVC, C=2.67, gamma=5.383)
+# Calculate the images HOG histograms
+hogHistograms = [list(map(hog, row)) for row in digitImages]
 
-affine_flags = cv2.WARP_INVERSE_MAP | cv2.INTER_LINEAR
+# Transform the Python array into a Numpy array
+hogHistograms = np.float32(hogHistograms)
+print('HOG histogram dimensions:', hogHistograms.shape[2])
 
-trainCellsDeskewed = [list(map(deskew, row)) for row in trainCells]
-trainHogData = [list(map(hog, row)) for row in trainCellsDeskewed]
-trainData = np.float32(trainHogData).reshape(-1, 64)
-trainLabels = np.float32(np.repeat(np.arange(10), 250)[:, np.newaxis])
+# Use the hog histograms as descriptors for the train and test data sets
+trainData = hogHistograms[:, :50].reshape(-1, hogHistograms.shape[2])
+testData = hogHistograms[:, 50:].reshape(-1, hogHistograms.shape[2])
 
+# Create the labels for the train and test data sets
+digits = np.arange(10)
+trainLabels = np.repeat(digits, trainData.shape[0] / digits.size)[:, np.newaxis]
+testLabels = np.repeat(digits, testData.shape[0] / digits.size)[:, np.newaxis]
+
+# Train the SVM
 svm = cv2.ml.SVM_create()
-svm.train(trainData, trainLabels, params=svm_params)
-svm.save('svm_data.dat')
+svm.setKernel(cv2.ml.SVM_LINEAR)
+svm.setType(cv2.ml.SVM_C_SVC)
+svm.setC(2.67)
+svm.setGamma(5.383)
+svm.train(trainData, cv2.ml.ROW_SAMPLE, trainLabels)
 
-######     Now testing      ########################
-
-testCellsDeskewed = [list(map(deskew, row)) for row in testCells]
-testHogData = [list(map(hog, row)) for row in testCellsDeskewed]
-testData = np.float32(testHogData).reshape(-1, nBins * 4)
-result = svm.predict_all(testData)
+# Test the result
+ret, result = svm.predict(testData)
 
 # Check the classification accuracy
 correctMatches = np.count_nonzero(result == testLabels)

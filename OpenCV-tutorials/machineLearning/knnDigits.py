@@ -6,23 +6,24 @@
 import cv2
 import numpy as np
 
-# Load the image containing the training data
-img = cv2.imread('../data/digits.png', 0)
+# Load the file containing the digits data: 500 different images for each digit
+data = cv2.imread('../data/digits.png', 0)
 
-# Split the image in 5000 cells, each of 20x20 pixels size
-cells = [np.hsplit(row, 100) for row in np.vsplit(img, 50)]
+# Split the data in 5000 images, each of 20x20 pixels size
+digitImages = [np.hsplit(row, 100) for row in np.vsplit(data, 50)]
+print('digitImages dimensions:', str(len(digitImages)) + 'x' + str(len(digitImages[0])) + 'x' + str(digitImages[0][0].size))
 
-# Transform the python array into a Numpy array
-cells = np.array(cells)
+# Transform the Python array into a Numpy array
+digitImages = np.float32(digitImages)
 
-# Split the data into train data and test data
-trainData = cells[:, :50].reshape(-1, 400).astype(np.float32)
-testData = cells[:, 50:100].reshape(-1, 400).astype(np.float32)
+# Use the image pixel values as descriptors for the train and test data sets
+trainData = digitImages[:, :50].reshape(-1, digitImages[0, 0].size)
+testData = digitImages[:, 50:].reshape(-1, digitImages[0, 0].size)
 
-# Create the labels for the train and test data
+# Create the labels for the train and test data sets
 digits = np.arange(10)
-trainLabels = np.repeat(digits, 250)[:, np.newaxis]
-testLabels = trainLabels.copy()
+trainLabels = np.repeat(digits, trainData.shape[0] / digits.size)[:, np.newaxis]
+testLabels = np.repeat(digits, testData.shape[0] / digits.size)[:, np.newaxis]
 
 # Save the train data
 np.savez('../data/knn_data.npz', trainData=trainData, trainLabels=trainLabels)
